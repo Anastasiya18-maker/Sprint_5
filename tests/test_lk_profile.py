@@ -5,6 +5,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from urls import Urls
 
 from locators import MainPage, LKProfile, AuthLogin
+from data import Data
 
 
 class TestStellarBurgersProfileForm:
@@ -15,7 +16,8 @@ class TestStellarBurgersProfileForm:
 
         login.find_element(*MainPage.mn_profile_button).click()
 
-        WebDriverWait(login, 3).until(EC.presence_of_element_located(LKProfile.lk_history_shop_button))
+
+        WebDriverWait(login, Data.WAIT_TIME).until(EC.visibility_of_element_located(LKProfile.lk_history_shop_button))
         assert Urls.url_profile == login.current_url
 
     def test_click_constructor_button_show_constructor_form(self, login):
@@ -24,7 +26,7 @@ class TestStellarBurgersProfileForm:
 
         login.find_element(*MainPage.mn_profile_button).click()
 
-        WebDriverWait(login, 3).until(EC.presence_of_element_located(LKProfile.lk_history_shop_button))
+        WebDriverWait(login, Data.WAIT_TIME).until(EC.visibility_of_element_located(LKProfile.lk_history_shop_button))
         login.find_element(*MainPage.mn_constructor_button).click()
 
         h1_tag = login.find_elements(*MainPage.mn_h_ban)
@@ -36,7 +38,7 @@ class TestStellarBurgersProfileForm:
 
         login.find_element(*MainPage.mn_profile_button).click()
 
-        WebDriverWait(login, 3).until(EC.presence_of_element_located(LKProfile.lk_history_shop_button))
+        WebDriverWait(login, Data.WAIT_TIME).until(EC.visibility_of_element_located(LKProfile.lk_history_shop_button))
         login.find_element(*MainPage.mn_logo).click()
 
         h1_tag = login.find_elements(*MainPage.mn_h_ban)
@@ -47,10 +49,10 @@ class TestStellarBurgersProfileForm:
 
 
         login.find_element(*MainPage.mn_profile_button).click()
-        WebDriverWait(login, 8).until(EC.presence_of_element_located(LKProfile.lk_history_shop_button))
+        WebDriverWait(login, Data.WAIT_TIME).until(EC.visibility_of_element_located(LKProfile.lk_history_shop_button))
 
         login.find_element(*LKProfile.lk_logout_button).click()
-        WebDriverWait(login, 8).until(EC.presence_of_element_located(AuthLogin.al_login_button_any_forms))
+        WebDriverWait(login, Data.WAIT_TIME).until(EC.visibility_of_element_located(AuthLogin.al_login_button_any_forms))
 
         login_button = login.find_element(*AuthLogin.al_element_with_login_text)
         assert login.current_url == Urls.url_login and login_button.text == 'Вход'

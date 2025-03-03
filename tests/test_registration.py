@@ -2,13 +2,13 @@ import pytest
 import time
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-import string
-import random
 
+
+from helper import Helper
 
 
 from urls import Urls
-from data import ValidData
+from data import ValidData, Data
 
 from locators import AuthRegistre, AuthLogin
 
@@ -21,12 +21,13 @@ class TestStellarBurgersRegistration:
 
         driver.get(Urls.url_register)
 
-        user_name =
-        login = driver.find_element(Helper.generate_email())
+
+        login = Helper.generate_email()
+        password = Helper.generate_password()
 
         driver.find_element(*AuthRegistre.ar_name_field).send_keys('s')
-        driver.find_element(*AuthRegistre.ar_email_field).send_keys(s)
-        driver.find_element(*AuthRegistre.ar_password_field).send_keys(f)
+        driver.find_element(*AuthRegistre.ar_email_field).send_keys(login)
+        driver.find_element(*AuthRegistre.ar_password_field).send_keys(password)
 
         driver.find_element(*AuthRegistre.ar_register_button).click()
         WebDriverWait(driver, Data.WAIT_TIME).until(EC.visibility_of_element_located(AuthLogin.al_element_with_login_text))
@@ -44,7 +45,7 @@ class TestStellarBurgersRegistration:
 
         driver.find_element(*AuthRegistre.ar_register_button).click()
 
-        WebDriverWait(driver, 5).until(EC.element_to_be_clickable(AuthRegistre.ar_register_button))
+        WebDriverWait(driver, Data.WAIT_TIME).until(EC.element_to_be_clickable(AuthRegistre.ar_register_button))
 
 
         errors_messages = driver.find_elements(*AuthRegistre.ar_error_message)
@@ -62,7 +63,7 @@ class TestStellarBurgersRegistration:
         driver.find_element(*AuthRegistre.ar_password_field).send_keys(ValidData.password)
 
         driver.find_element(*AuthRegistre.ar_register_button).click()
-        WebDriverWait(driver, 5).until(EC.presence_of_element_located(AuthRegistre.ar_error_message_2))
+        WebDriverWait(driver, Data.WAIT_TIME).until(EC.presence_of_element_located(AuthRegistre.ar_error_message_2))
         error_message = driver.find_element(*AuthRegistre.ar_error_message_2)
 
         assert error_message.text == 'Такой пользователь уже существует'
@@ -77,7 +78,7 @@ class TestStellarBurgersRegistration:
         driver.find_element(*AuthRegistre.ar_password_field).send_keys(password_list)
 
         driver.find_element(*AuthRegistre.ar_register_button).click()
-        WebDriverWait(driver, 5).until(EC.presence_of_element_located(AuthRegistre.ar_error_message))
+        WebDriverWait(driver, Data.WAIT_TIME).until(EC.presence_of_element_located(AuthRegistre.ar_error_message))
         error_message = driver.find_element(*AuthRegistre.ar_error_message)
 
         assert error_message.text == 'Некорректный пароль'

@@ -1,11 +1,14 @@
 import random
 
+class Data:
+    WAIT_TIME = 8
+
 class PersonData:
     user_name = 'Анастасия'
     login = 'chernyshina15fs@yandex.ru'
 
     password = '18031993'
-    WAIT_TIME = 8
+
 
  #ValidData
 class ValidData:
