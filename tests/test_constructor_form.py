@@ -1,6 +1,7 @@
 
 
 from locators import MainPage
+from data import TestData
 
 
 class TestStellarBurgersConstructorForm:
@@ -12,9 +13,12 @@ class TestStellarBurgersConstructorForm:
         driver.find_element(*MainPage.mn_constructor_button).click()
         driver.find_element(*MainPage.mn_sauces_button).click()
 
-        h_sauce = driver.find_element(*MainPage.mn_h_sauces)
+        sauces_button = driver.find_element(*MainPage.mn_sauces_button)
+        assert 'tab_tab_type_current__2BEPc' in sauces_button.get_attribute('class'), "Таб 'Соусы' не активен"
 
-        assert h_sauce.text == 'Соусы'
+        # Дополнительно проверяем, что заголовок соответствует ожидаемому
+        h_sauce = driver.find_element(*MainPage.mn_h_sauces)
+        assert h_sauce.text == TestData.SAUCES_HEADER, "Заголовок не соответствует ожидаемому"
 
     def test_constructor_go_to_filling_scroll_to_filling(self, login):
         # Переход в "Начинки"
@@ -22,9 +26,13 @@ class TestStellarBurgersConstructorForm:
 
         driver.find_element(*MainPage.mn_constructor_button).click()
         driver.find_element(*MainPage.mn_filling_button).click()
-        h_filling = driver.find_element(*MainPage.mn_h_filling)
+        filling_button = driver.find_element(*MainPage.mn_filling_button)
 
-        assert h_filling.text == 'Начинки'
+        assert 'tab_tab_type_current__2BEPc' in filling_button.get_attribute('class'), "Таб 'Начинки' не активен"
+
+        # Дополнительно проверяем, что заголовок соответствует ожидаемому
+        h_filling = driver.find_element(*MainPage.mn_h_filling)
+        assert h_filling.text == TestData.FILLING_HEADER, "Заголовок не соответствует ожидаемому"
 
     def test_constructor_go_to_bun_scroll_to_bun(self, login):
         # Переход в "Булки"
@@ -34,7 +42,10 @@ class TestStellarBurgersConstructorForm:
         driver.find_element(*MainPage.mn_filling_button).click()
         driver.find_element(*MainPage.mn_ban_button).click()
 
-        h_ban = driver.find_element(*MainPage.mn_h_ban)
+        bun_button = driver.find_element(*MainPage.mn_ban_button)
+        assert 'tab_tab_type_current__2BEPc' in bun_button.get_attribute('class'), "Таб 'Булки' не активен"
 
-        assert h_ban.text == 'Булки'
+        # Дополнительно проверяем, что заголовок соответствует ожидаемому
+        h_ban = driver.find_element(*MainPage.mn_h_ban)
+        assert h_ban.text == TestData.BUN_HEADER, "Заголовок не соответствует ожидаемому"
 

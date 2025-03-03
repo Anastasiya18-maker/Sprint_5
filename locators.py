@@ -40,4 +40,4 @@ class AuthPassword:
 class LKProfile:
     lk_logout_button = (By.XPATH, ".//button[text()='Выход']")
     lk_info_message = (By.XPATH, ".//p[contains(text(),'персональные данные')]")
-    lk_history_shop_button = (By.XPATH, '//*[@id="root"]/div/main/div/nav/ul/li[2]/a')
+    lk_history_shop_button = (By.XPATH, ".//a[contains(@class, 'Account_link') and text()='История заказов']")

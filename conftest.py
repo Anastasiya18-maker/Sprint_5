@@ -34,3 +34,10 @@ def login(driver):
 
     yield driver
     driver.quit()
+
+@pytest.fixture
+def login():
+    driver = webdriver.Chrome()
+    driver.get("https://stellarburgers.nomoreparties.site/")
+    yield driver
+    driver.quit()

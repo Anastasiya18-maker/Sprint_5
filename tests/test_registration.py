@@ -21,20 +21,16 @@ class TestStellarBurgersRegistration:
 
         driver.get(Urls.url_register)
 
-        s = ''
-        for i in range(10):
-            s += random.choice(string.ascii_letters)
+        user_name =
+        login = driver.find_element(Helper.generate_email())
 
-        f = ''
-        for i in range(7):
-            f += random.choice(string.digits)
         driver.find_element(*AuthRegistre.ar_name_field).send_keys('s')
         driver.find_element(*AuthRegistre.ar_email_field).send_keys(s)
         driver.find_element(*AuthRegistre.ar_password_field).send_keys(f)
 
         driver.find_element(*AuthRegistre.ar_register_button).click()
-        WebDriverWait(driver, 8).until(EC.presence_of_element_located(AuthLogin.al_element_with_login_text))
-        time.sleep(2)
+        WebDriverWait(driver, Data.WAIT_TIME).until(EC.visibility_of_element_located(AuthLogin.al_element_with_login_text))
+
         login_button = driver.find_element(*AuthLogin.al_element_with_login_text)
 
         assert driver.current_url == Urls.url_login and login_button.text == 'Вход'
